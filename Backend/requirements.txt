@@ -3,3 +3,4 @@ asyncpg
 sqlalchemy[asyncio]
 python-dotenv
 PyMuPDF             # For PDF text extraction
+langchain
