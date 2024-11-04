@@ -7,40 +7,38 @@ import tracemalloc
 tracemalloc.start()
 router = APIRouter()
 
-# Provide the path to your credentials JSON file, your Google Cloud project ID, and the model name
-CREDENTIALS_PATH = r"C:\Users\eahta\Downloads\chatpdf-440713-3e2b62dd8f3a.json"
-PROJECT_ID = "chatpdf-440713"
-MODEL_NAME = "textembedding-gecko@001"  # Specify the model name here if needed
-
 # Initialize the PDFService instance with credentials
-pdf_service = PDFService(credentials_path=CREDENTIALS_PATH, project_id=PROJECT_ID, model_name=MODEL_NAME)
+pdf_service = PDFService()
 
 
 @router.post("/upload-pdf/")
 async def upload_pdf(file: UploadFile = File(...)):
-    print("Received file:", file.filename) 
     if not file.content_type == "application/pdf":
         raise HTTPException(
             status_code=400,
             detail="Only PDF files are accepted"
         )
     
+
     # Define the uploads directory
     uploads_dir = "./uploads"
     
+
     # Check if the uploads directory exists, if not, create it
     if not os.path.exists(uploads_dir):
         os.makedirs(uploads_dir)
 
+
     # Save PDF to local filesystem
     pdf_path = os.path.join(uploads_dir, file.filename)
     with open(pdf_path, "wb") as pdf_file:
-        pdf_file.write(await file.read())  # Use await here to read the file content
+        pdf_file.write(await file.read())  # Using await here to read the file content
+
 
     try:
         # Extract text content from the PDF file
         text_content = await pdf_service.extract_text_from_pdf(pdf_path)  # Pass the path to the PDF file
-        print(text_content)
+        # print(text_content) Debug print statement.
 
         # Insert into database
         insert_query = """
@@ -69,6 +67,8 @@ async def upload_pdf(file: UploadFile = File(...)):
             detail=f"Error processing PDF: {str(e)}"
         )
 
+
+
 @router.get("/documents/{document_id}")
 async def get_document(document_id: int):
     query = "SELECT filename, content FROM documents WHERE id = $1"
@@ -86,6 +86,8 @@ async def get_document(document_id: int):
         "filename": document['filename'],
         "content": document['content']
     }
+
+
 
 
 @router.get("/ask-question/{document_id}")

@@ -1,35 +1,19 @@
 import fitz  # PyMuPDF
 import logging
-from google.cloud import aiplatform
-from langchain_google_vertexai import VertexAIEmbeddings
-from langchain_google_vertexai import VertexAI
 from langchain.chains import RetrievalQA
 from langchain_community.vectorstores import FAISS
 from langchain.docstore.document import Document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from google.oauth2 import service_account
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from langchain_google_genai import ChatGoogleGenerativeAI
+from ..config import API_KEY
 
 logging.basicConfig(level=logging.INFO)
 
 class PDFService:
-    def __init__(self, credentials_path: str, project_id: str, model_name: str = "text-bison"):
-        # Initialize Google Cloud credentials
-        credentials = service_account.Credentials.from_service_account_file(credentials_path)
-
-        # Initialize Vertex AI with project details
-        aiplatform.init(
-            credentials=credentials,
-            project=project_id,
-            location='us-central1'
-        )
-
-        # Initialize the embeddings model and LLM
-        self.embeddings = VertexAIEmbeddings(model_name=model_name)  # Specify the model name here
-        self.llm = VertexAI(
-            model_name=model_name,
-            max_output_tokens=1024,
-            temperature=0.1
-        )
+    def __init__(self):
+        self.llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro", google_api_key=API_KEY, temperature=0.3)
+        self.embeddings=GoogleGenerativeAIEmbeddings(model="models/embedding-001", google_api_key=API_KEY)
         self.vector_store_cache = {}
 
     async def extract_text_from_pdf(self, pdf_path: str) -> str:
@@ -62,15 +46,22 @@ class PDFService:
         
         if document_id not in self.vector_store_cache:
             documents = [Document(page_content=chunk) for chunk in chunks]
+
+
+
             vector_store = FAISS.from_documents(documents, self.embeddings)
             self.vector_store_cache[document_id] = vector_store
+            print(self.vector_store_cache)
             logging.info("Document loaded into vector store successfully.")
 
     async def answer_question(self, document_id: int, question: str) -> str:
         """Answer a question based on the content of the loaded document."""
+
         if document_id not in self.vector_store_cache:
             raise ValueError("Document not loaded. Please upload and load the document first.")
         
+
+
         retriever = self.vector_store_cache[document_id].as_retriever(search_type="similarity", search_kwargs={"k": 3})
         qa_chain = RetrievalQA.from_chain_type(llm=self.llm, chain_type="stuff", retriever=retriever)
         
