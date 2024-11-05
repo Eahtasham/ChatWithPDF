@@ -61,5 +61,5 @@ Install all dependencies with:
 
 ## License
 
-This project is licensed under [Your License Here]. Please refer to the LICENSE file for more details.
+This project is licensed under MIT. Please refer to the LICENSE file for more details.
 ```
