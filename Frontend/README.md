@@ -21,7 +21,7 @@ Before you begin, ensure you have installed:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/Eahtasham/ChatWithPDF
+git clone https://github.com/Eahtasham/ChatWithPDF.git
 cd pdf-qa-app
 ```
 
@@ -178,8 +178,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Contact
 
 Eahtasham Ummam - eahtashamummam@gmail.com
-<<<<<<< HEAD
 Project Link: https://github.com/Eahtasham/ChatWithPDF
-=======
-Project Link: https://github.com/Eahtasham/ChatWithPDF
->>>>>>> 54a086cc4f9b7d632382c97812b188dfc617e26b
