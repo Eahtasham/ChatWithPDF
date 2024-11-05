@@ -193,7 +193,7 @@ The application implements comprehensive error handling for:
    - Check API quota limits
    - Ensure proper network connectivity
 ## Contributing
-1. Fork the repository
+1. Fork this repository
 2. Create a feature branch
 3. Commit changes
 4. Push to the branch
