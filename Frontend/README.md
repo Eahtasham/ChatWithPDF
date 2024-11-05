@@ -1,4 +1,4 @@
-# Chat With PDF
+# ChatWithPDF
 
 A React application that allows users to upload PDF documents and ask questions about their content. The application features a modern, responsive UI with real-time feedback and error handling.
 
