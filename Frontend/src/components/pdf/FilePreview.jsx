@@ -3,7 +3,8 @@ import { FileText } from 'lucide-react';
 import { usePDFContext } from '../../context/PDFContext';
 
 const FilePreview = () => {
-  const { fileName } = usePDFContext();
+  const { fileName } = usePDFContext();    //using custome hook  to get the fileName from context
+
 
   if (!fileName) return null;
 

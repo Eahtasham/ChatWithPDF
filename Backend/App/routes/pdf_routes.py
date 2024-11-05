@@ -68,7 +68,7 @@ async def upload_pdf(file: UploadFile = File(...)):
         )
 
 
-
+#This route will help in getting the name of uploaded file and can be helpful while deleting the pdf data
 @router.get("/documents/{document_id}")
 async def get_document(document_id: int):
     query = "SELECT filename, content FROM documents WHERE id = $1"
@@ -89,6 +89,7 @@ async def get_document(document_id: int):
 
 
 
+#It will be the route to ask question based on the  uploaded pdf using the id of it.
 
 @router.get("/ask-question/{document_id}")
 async def ask_question(document_id: int, question: str = Query(...)):

@@ -6,7 +6,8 @@ import { askQuestion } from '../../services/api';
 const QuestionInput = ({ onNewAnswer }) => {
   const [question, setQuestion] = useState('');
   const [loading, setLoading] = useState(false);
-  const { documentId } = usePDFContext();
+  const { documentId } = usePDFContext();   //using custom  hook to get documentId from context
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -7,11 +7,13 @@ import FilePreview from './FilePreview';
 const PDFUploader = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const { setDocumentId, setFileName } = usePDFContext();
+  const { setDocumentId, setFileName } = usePDFContext();  //using  the context to get the state and update it
+
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
-    if (file && file.type === 'application/pdf') {
+    if (file && file.type === 'application/pdf') {        //explicitly choosing filetype to pdf for  upload
+
       setLoading(true);
       try {
         const data = await uploadPDF(file);

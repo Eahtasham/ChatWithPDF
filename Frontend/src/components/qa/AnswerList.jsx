@@ -1,3 +1,5 @@
+//Will handle the list of questins and ansewr and map  them to the correct question and answer/
+
 import React from 'react';
 
 const AnswerList = ({ qaList }) => {
