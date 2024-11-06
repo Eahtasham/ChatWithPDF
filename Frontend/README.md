@@ -22,7 +22,8 @@ Before you begin, ensure you have installed:
 1. Clone the repository:
 ```bash
 git clone https://github.com/Eahtasham/ChatWithPDF.git
-cd pdf-qa-app
+cd ChatWithPDF
+cd Frontend
 ```
 
 2. Install dependencies:
@@ -81,7 +82,7 @@ npm run preview
 ## Project Structure
 
 ```
-pdf-qa-app/
+Frontend/
 ├── public/
 ├── src/
 │   ├── components/
