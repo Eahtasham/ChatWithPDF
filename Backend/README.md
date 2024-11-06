@@ -34,6 +34,7 @@ ChatWithPDF is a FastAPI-based application that enables users to upload PDF docu
    ```bash
    git clone https://github.com/Eahtasham/ChatWithPDF.git
    cd ChatWithPDF
+   cd Backend
    ```
 2. **Set Up Virtual Environment**
    ```bash
