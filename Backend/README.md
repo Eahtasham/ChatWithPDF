@@ -80,8 +80,8 @@ python-jose>=3.3.0
 ```
 ## Project Structure
 ```
-pdf_app/
-├── app/
+Backend/
+├── App/
 │   ├── __init__.py
 │   ├── main.py            # FastAPI application entry point
 │   ├── config.py          # Configuration settings
