@@ -31,7 +31,8 @@ class PDFService:
         except Exception as e:
             logging.error(f"Error extracting text from PDF: {str(e)}")
             raise
-    # This function handles all the  backend operations. It takes the text, question and the document id as input and first creates chunks then vector store.
+    # This function handles all the  backend operations. 
+    # It takes the text, question and the document id as input and first creates chunks then vector store.
     async def load_documents(self, text_content: str, document_id: int):
         """Load documents into the vector store."""
         logging.info(f"Loading documents for document ID: {document_id}")
