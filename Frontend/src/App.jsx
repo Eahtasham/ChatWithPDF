@@ -4,7 +4,6 @@ import PDFUploader from './components/pdf/PDFUploader';
 import QuestionInput from './components/qa/QuestionInput';
 import AnswerList from './components/qa/AnswerList';
 import { usePDFContext } from './context/PDFContext';
-import FilePreview from './components/pdf/FilePreview';
 
 function App() {
   const [qaList, setQAList] = useState([]);
