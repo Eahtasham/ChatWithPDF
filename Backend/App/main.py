@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from .routes import pdf_routes
 import asyncpg
 from .config import DATABASE_URL
+import os
 
 app = FastAPI()
 
@@ -15,6 +16,8 @@ async def lifespan(app: FastAPI):
 # Set the lifespan handler
 app = FastAPI(lifespan=lifespan)
 
+port = int(os.getenv("PORT", 10000))
+print("The app is running on",port)
 @app.get("/")
 async def root():
     return {"message": "Welcome to the PDF Q&A API"}

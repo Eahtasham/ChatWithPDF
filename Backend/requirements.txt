@@ -4,8 +4,3 @@ python-dotenv
 PyMuPDF             # For PDF text extraction
 langchain
 asyncpg
-typing
-logging
-dotenv
-os
-tracemalloc

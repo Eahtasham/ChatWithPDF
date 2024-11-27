@@ -6,6 +6,7 @@ from langchain.docstore.document import Document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain.memory import ConversationBufferMemory
 from ..config import API_KEY
 
 logging.basicConfig(level=logging.INFO)
@@ -66,10 +67,18 @@ class PDFService:
         if document_id not in self.vector_store_cache:
             raise ValueError("Document not loaded. Please upload and load the document first.")
         
-
+        # Create or retrieve the ConversationBufferMemory for the given document ID
+        if document_id not in self.memory_cache:
+            self.memory_cache[document_id] = ConversationBufferMemory(
+                memory_key="chat_history", 
+                input_key="query",
+                output_key="result"
+            )
+        memory = self.memory_cache[document_id]
+        
         #performing similarity search on the stored vector store and passing the ranked result to chain.
         retriever = self.vector_store_cache[document_id].as_retriever(search_type="similarity", search_kwargs={"k": 3})
-        qa_chain = RetrievalQA.from_chain_type(llm=self.llm, chain_type="stuff", retriever=retriever)
+        qa_chain = RetrievalQA.from_chain_type(llm=self.llm, chain_type="stuff", retriever=retriever,memory=memory)
         
         #Chain created and  now we can pass the question to it to get the answer.
         result = qa_chain({"query": question})
