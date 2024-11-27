@@ -1,6 +1,9 @@
 fastapi
 asyncpg
 python-dotenv
-PyMuPDF             # For PDF text extraction
+PyMuPDF
 langchain
-asyncpg
+uvicorn
+langchain_community
+langchain_google_genai
+python-multipart
